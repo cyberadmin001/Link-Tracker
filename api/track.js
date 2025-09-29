@@ -6,6 +6,6 @@ export default function handler(req, res) {
     console.log(`Click tracked: RID=${rid}`);
 
     // Redirect the user to a fallback page (e.g., Microsoft Forms Thank You page)
-    res.writeHead(302, { Location: 'https://forms.office.com/thankyou' });
+    res.writeHead(302, { Location: 'https://forms.office.com/r/EG2qXBvq4W?rid=YiqrJnh' });
     res.end();
 }
