@@ -6,6 +6,12 @@ export default async function handler(req, res) {
   const xff = req.headers['x-forwarded-for'];
   const userIp = (Array.isArray(xff) ? xff[0] : (xff || '').split(',')[0].trim()) || req.socket?.remoteAddress || 'unknown';
 
+    if (userIp && userIp !== 'unknown') {
+    const geoUrl = `http://ip-api.com/json/${encodeURIComponent(userIp)}?fields=status,country,regionName,city,lat,lon,timezone,isp,query`;
+    const controllerGeo = new AbortController();
+    const geoTimeoutMs = 300; // short timeout so we don't delay redirect
+    const timeoutId = setTimeout(() => controllerGeo.abort(), geoTimeoutMs);
+
   // 3. Capture the user-agent (browser, OS, etc.) from the request headers
   const userAgent = req.headers['user-agent'];
 
